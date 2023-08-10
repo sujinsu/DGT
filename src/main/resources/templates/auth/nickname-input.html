@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>닉네임 변경</title>
+  <!-- css 추가-->
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div id="app">
+    <h2 class="form-signin-heading text-center">두구두구 TALK </h2><br>
+    <p class="text-center"><span th:text="${sessionUser.name}"></span>님, 닉네임을 입력해주세요. </p><br>
+    <div class="content">
+      <input v-model="newInput">
+      <button class="btn btn-success" v-on:click="nickInput">입력</button>
+    </div>
+    
+    
+  </div>
+  <script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
+  <script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
+  <script src="/webjars/bootstrap/4.3.1/dist/js/bootstrap.min.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        newInput: '[[${sessionUser.nickname}]]',
+      },
+      created() {
+        
+      },
+      mounted() {
+        document.addEventListener('DOMContentLoaded', function() {});
+      },
+      methods: {
+        nickInput: function() {
+          let data = this.newInput;
+          //입력된 닉네임이 없을 때
+          if (!data || data == "") {
+            alert('닉네임을 입력해주세요');
+          
+          //입력 값이 있을 때
+          } else {
+            axios.put('/users/nickname', {"nickname":data})
+            .then(//닉네임 변경 요청에 대한 응답이 존재할 때
+                response => {
+                    localStorage.setItem('wschat.sender',data);
+                    location.href="/chat/room";
+                }
+            )
+            .catch(//닉네임 변경 요청에 대한 응답에 오류가 발생했을 때
+                error => {
+                    console.log(JSON.stringify(error));
+                    alert("오류가 발생했습니다.");}
+            )
+          }
+
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: alpha
+  redis:
+    # Redis 설치된 서버 host 및 port 
+    host: 
+    port:

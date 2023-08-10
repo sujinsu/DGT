@@ -1,0 +1,5 @@
+
+
+spring:
+  testredis:
+    port: 0 # port값으로 0을 주면 사용가능한 포트 중 랜덤선택

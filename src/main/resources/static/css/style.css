@@ -1,0 +1,40 @@
+body {
+  background-color: #eee!important;
+  padding-top: 40px;
+  padding-bottom: 40px
+}
+
+button{
+  margin: 0 5px!important;
+}
+
+.socialImg {
+  width: 50px;
+  height: 50px;
+  justify-self: center;
+  align-self:center ;
+  border-radius: 5px;
+  margin: 2px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+.content .center {
+  margin: 2px;
+}
+
+.profile {
+  margin: 5px;
+}
+
+
+#logBtn {
+  display:flex;
+  justify-content: end;
+}
+
+#exit {
+  float:right
+}

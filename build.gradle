@@ -1,0 +1,87 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.0")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.sonarqube'
+
+group 'dgtalk.dgtalk-back'
+version '1.0'
+sourceCompatibility = 1.8
+
+bootJar {
+    baseName = 'dgtalk-back'
+    version =  'BUILD-NUM'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+dependencies {
+    //spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    //socket
+    implementation 'org.webjars:stomp-websocket:2.3.3-1'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.webjars:sockjs-client:1.1.2'
+
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+
+    //repository
+    implementation 'mysql:mysql-connector-java'
+    
+    //data
+    implementation 'com.google.code.gson:gson:2.8.0'
+
+    //Oauth
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    //lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //view
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.webjars.bower:bootstrap:4.3.1'
+    implementation 'org.webjars.bower:vue:2.5.16'
+    implementation 'org.webjars.bower:axios:0.17.1'
+
+    //test
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testCompile('io.rest-assured:rest-assured:3.0.3') // Rest API Test
+    
+    //swagger
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    
+}
+sonarqube {
+    properties {
+        property "sonar.projectName", "dgtalk-back"
+        property "sonar.projectKey", "dgtalk-back"
+        property "sonar.host.url", "https://detector.digitalkds.co.kr"
+        property "sonar.login", "21525ad3f576bc722cb72c5fc1157cee4f43514f"
+    }
+}

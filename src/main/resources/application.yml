@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+# Spring Profile 설정
+spring:
+  profiles:
+    active: local
+    include: oauth # oauth 추가
+
+# Thymeleaf 설정
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    suffix: .html
+    prefix:
+      classpath:/templates/
+
+# datasource 환경
+  datasource:
+    url: jdbc:mysql://mysql.dev.cip.digitalkds.co.kr:39212/dgtalk-mysql?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: dgtalk
+    password: dgtalk
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# JPA 설정
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
